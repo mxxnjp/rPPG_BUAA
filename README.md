@@ -67,20 +67,18 @@ BUAA-MIHR 원본 데이터셋과, 이로부터 만든 `buaa_experiment/labels.cs
 
 ---
 
-## 실험 환경 (team3-server)
+## 실험 환경
 
 | 항목 | 사양 |
 |---|---|
 | OS | Ubuntu 24.04 LTS |
 | GPU | NVIDIA GeForce RTX 4090 (24GB) × 4 (병렬로 실험 큐 실행) |
-| Driver / CUDA | 535.309.01 / CUDA 12.2 (PyTorch는 cu121 빌드) |
-| CPU / RAM | 56 코어 / 251GB |
+| CUDA | CUDA 12.2 (PyTorch는 cu121 빌드) |
 | Python | 3.11.15 (conda env `rppg`) |
 | PyTorch | 2.5.1+cu121 |
 | torchvision | 0.20.1+cu121 |
 | NumPy | 2.4.6 |
 | OpenCV | opencv-contrib-python 5.0.0.93 |
-| 기타 | mediapipe 1.0.1, imageio-ffmpeg 0.6.0 |
 
 ```bash
 conda create -n rppg python=3.11 -y && conda activate rppg
