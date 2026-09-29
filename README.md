@@ -54,7 +54,7 @@ ROI = `full`, 시드 평균이며 표의 n은 시드 수. 원본은 [`metrics_ev
 │   ├── train_subjects*.txt  # split A(기본) / B / C
 │   └── val_subjects*.txt
 ├── models/face_landmarker.task
-├── run_*.sh                 # GPU별 실험 큐 스크립트
+├── scripts/                 # GPU별 실험 큐 스크립트 (run_*.sh)
 ├── results.csv              # 학습 중 best val Pearson (조도별)
 ├── results_roi.csv          # ROI 실험 결과
 └── metrics_eval.csv         # evaluate.py 결과 (전체 지표)
@@ -129,7 +129,7 @@ python -u train.py --model efficientphys_bigru ... \
   --val_subjects   buaa_experiment/val_subjects_B.txt
 ```
 
-여러 시드/split을 돌리는 예시는 `run_seed47to51_gpu0.sh` 등을 참고.
+여러 시드/split을 돌리는 예시는 `scripts/run_seed47to51_gpu0.sh` 등을 참고.
 
 ### 3. ROI 실험
 
