@@ -67,12 +67,24 @@ BUAA-MIHR 원본 데이터셋과, 이로부터 만든 `buaa_experiment/labels.cs
 
 ---
 
-## 실험 환경
+## 실험 환경 (team3-server)
 
-- GPU: NVIDIA GeForce RTX 5090
-- Python 3.13, PyTorch 2.12.0+cu130 (CUDA 13.0), torchvision 0.27.0, NumPy 2.4.6
+| 항목 | 사양 |
+|---|---|
+| OS | Ubuntu 24.04 LTS |
+| GPU | NVIDIA GeForce RTX 4090 (24GB) × 4 (병렬로 실험 큐 실행) |
+| Driver / CUDA | 535.309.01 / CUDA 12.2 (PyTorch는 cu121 빌드) |
+| CPU / RAM | 56 코어 / 251GB |
+| Python | 3.11.15 (conda env `rppg`) |
+| PyTorch | 2.5.1+cu121 |
+| torchvision | 0.20.1+cu121 |
+| NumPy | 2.4.6 |
+| OpenCV | opencv-contrib-python 5.0.0.93 |
+| 기타 | mediapipe 1.0.1, imageio-ffmpeg 0.6.0 |
 
 ```bash
+conda create -n rppg python=3.11 -y && conda activate rppg
+pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu121
 pip install -r requirements.txt
 ```
 
