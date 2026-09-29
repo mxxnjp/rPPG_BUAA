@@ -1,7 +1,7 @@
 # Low-Light rPPG on BUAA-MIHR: EfficientPhys + GRU / BiGRU
 
 BUAA-MIHR 저조도(1 ~ 4 lux) 영상에서 **EfficientPhys** 백본에 시간축 모델(GRU / BiGRU)을 붙였을 때
-rPPG 성능이 어떻게 변하는지 비교하는 실험 코드입니다.
+rPPG 성능이 어떻게 변하는지 비교하는 실험 코드.
 
 | 모델 | 설명 |
 |---|---|
@@ -9,15 +9,15 @@ rPPG 성능이 어떻게 변하는지 비교하는 실험 코드입니다.
 | `efficientphys_gru` | EfficientPhys + GRU |
 | `efficientphys_bigru` | EfficientPhys + BiGRU |
 
-세 모델은 동일한 백본, 동일한 학습 조건, 동일한 subject split에서 비교합니다.
-Split 3종(A/B/C) × 시드 여러 개 × ROI 2종(`full` / `multi`)으로 반복 실험했습니다.
+세 모델은 동일한 백본, 동일한 학습 조건, 동일한 subject split에서 비교함.
+Split 3종(A/B/C) × 시드 여러 개 × ROI 2종(`full` / `multi`)으로 반복 실험함.
 
 ---
 
 ## 결과 요약
 
 Overall Pearson correlation (높을수록 좋음), HR MAE (bpm, 낮을수록 좋음), SNR (dB, 높을수록 좋음).
-ROI = `full`, 시드 평균이며 표의 n은 시드 수입니다. 원본은 [`metrics_eval.csv`](metrics_eval.csv)입니다.
+ROI = `full`, 시드 평균이며 표의 n은 시드 수. 원본은 [`metrics_eval.csv`](metrics_eval.csv) 임.
 
 | Split | 모델 | n | Pearson | HR MAE | SNR |
 |---|---|---|---|---|---|
@@ -31,10 +31,10 @@ ROI = `full`, 시드 평균이며 표의 n은 시드 수입니다. 원본은 [`m
 | C | + GRU | 5 | 0.084 | 25.7 | -7.65 |
 | C | + BiGRU | 5 | **0.110** | **20.6** | **-7.04** |
 
-- 모든 split에서 **BiGRU > GRU > Baseline** 순으로 Pearson이 높습니다.
-- HR MAE는 Baseline 대비 GRU/BiGRU에서 크게 줄어듭니다 (split B: 32.8 → 12.6 bpm).
-- 절대 성능은 낮습니다 (Pearson 0.06 ~ 0.16). 1 ~ 4 lux 극저조도이고 학습 데이터가 작은(120 windows) 설정이기 때문입니다.
-  모델 간 상대 비교로 보는 것이 적절합니다.
+- 모든 split에서 **BiGRU > GRU > Baseline** 순으로 Pearson이 높음.
+- HR MAE는 Baseline 대비 GRU/BiGRU에서 크게 줄어듦 (split B: 32.8 → 12.6 bpm).
+- 절대 성능은 낮음 (Pearson 0.06 ~ 0.16). 1 ~ 4 lux 극저조도이고 학습 데이터가 작은(120 windows) 설정이기 때문임.
+  모델 간 상대 비교로 보는 것이 적절함.
 
 ---
 
@@ -60,10 +60,8 @@ ROI = `full`, 시드 평균이며 표의 n은 시드 수입니다. 원본은 [`m
 └── metrics_eval.csv         # evaluate.py 결과 (전체 지표)
 ```
 
-체크포인트(`*.pt`)와 학습 로그는 용량 문제로 저장소에 포함하지 않았습니다.
-BUAA-MIHR 원본 데이터셋과, 이로부터 만든 `buaa_experiment/labels.csv`(프레임별 BVP/HR 라벨)도
-재배포 문제로 포함하지 않았습니다. 데이터셋은 별도로 준비하고, `labels.csv`는 저자에게 문의하거나
-`datasets/buaa_dataset_fast.py` 의 라벨 형식(`subject,lux,video_path,frame_idx,timestamp,bvp,hr_bpm`)에 맞춰 생성하세요.
+체크포인트(`*.pt`)와 학습 로그는 용량 문제로 저장소에 포함하지 않았음.
+
 
 ---
 
@@ -92,9 +90,9 @@ pip install -r requirements.txt
 
 ### 1. 데이터 경로 설정
 
-`buaa_experiment/labels.csv` 가 준비되어 있어야 합니다.
+`buaa_experiment/labels.csv` 가 준비되어 있어야 함.
 
-BUAA-MIHR 데이터셋은 아래 구조여야 합니다.
+BUAA-MIHR 데이터셋은 아래 구조여야 함.
 
 ```text
 BUAA-MIHR/
@@ -109,7 +107,7 @@ python set_data_path.py --data_root /path/to/BUAA-MIHR
 
 ### 2. 학습
 
-`--model` 만 바꿔서 세 모델을 같은 조건으로 학습합니다.
+`--model` 만 바꿔서 세 모델을 같은 조건으로 학습함.
 
 ```bash
 python -u train.py \
@@ -120,9 +118,9 @@ python -u train.py \
   --val_max_lux 4.0 --seed 42 --device cuda
 ```
 
-`--model` 은 `efficientphys` / `efficientphys_gru` / `efficientphys_bigru` 중 선택합니다.
+`--model` 은 `efficientphys` / `efficientphys_gru` / `efficientphys_bigru` 중 선택.
 
-다른 split을 쓰려면 subject 파일을 지정합니다.
+다른 split을 쓰려면 subject 파일을 지정함.
 
 ```bash
 python -u train.py --model efficientphys_bigru ... \
@@ -131,7 +129,7 @@ python -u train.py --model efficientphys_bigru ... \
   --val_subjects   buaa_experiment/val_subjects_B.txt
 ```
 
-여러 시드/split을 돌리는 예시는 `run_seed47to51_gpu0.sh` 등을 참고하세요.
+여러 시드/split을 돌리는 예시는 `run_seed47to51_gpu0.sh` 등을 참고.
 
 ### 3. ROI 실험
 
@@ -139,7 +137,7 @@ python -u train.py --model efficientphys_bigru ... \
 python precompute_roi.py   # roi_boxes.json 생성
 ```
 
-이후 `train.py` 의 ROI 옵션(`full` / `multi`)으로 학습합니다. 자세한 옵션은 `python train.py -h`.
+이후 `train.py` 의 ROI 옵션(`full` / `multi`)으로 학습함. 자세한 옵션은 `python train.py -h`.
 
 ---
 
@@ -163,7 +161,7 @@ python precompute_roi.py   # roi_boxes.json 생성
 | B | 05, 11 |
 | C | 03, 12 |
 
-나머지 subject는 train으로 사용합니다. 정확한 목록은 `buaa_experiment/*_subjects*.txt` 를 참고하세요.
+나머지 subject는 train으로 사용함. 정확한 목록은 `buaa_experiment/*_subjects*.txt` 를 참고.
 
 ---
 
@@ -178,4 +176,4 @@ BEST VAL LOSS: ...
 BEST VAL PEARSON: ...
 ```
 
-체크포인트는 `checkpoint_buaa_<model>[...].pt` 로 저장됩니다.
+체크포인트는 `checkpoint_buaa_<model>[...].pt` 로 저장됨.
